@@ -11,10 +11,10 @@ public class GameScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ChnageGameMusic();
+        ChangeMusic();
     }
 
-    private void ChnageGameMusic()
+    private void ChangeMusic()
     {
         MusicPlayer.Instance.ChangeMusic(music);
         MusicPlayer.Instance.Play();
