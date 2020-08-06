@@ -11,7 +11,7 @@ public class SpawnAttacker : MonoBehaviour
     {
         while (spawnerActive)
         {
-            yield return new WaitForSeconds(UnityEngine.Random.Range(6, 10));
+            yield return new WaitForSeconds(UnityEngine.Random.Range(1, 6));
             Spawn();
         }
     }
