@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameScene : MonoBehaviour
 {
     GameObject musicPlayer;
-    [SerializeField] AudioClip music;
+    [SerializeField] AudioClip music = default;
 
     // Start is called before the first frame update
     void Start()
