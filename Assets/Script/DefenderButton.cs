@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class DefenderButton : MonoBehaviour
 {
     private ButtonsController buttonsController;
+    [SerializeField] GameObject defenderPrefab;
     Color whiteColor = new Color(255f, 255f, 255f);
 
     private void Start()
@@ -15,7 +16,7 @@ public class DefenderButton : MonoBehaviour
 
     public void ActivateSelectedButton()
     {
-        buttonsController.DeactivateAllButtons();
+        buttonsController.SetDefender(defenderPrefab);
         gameObject.GetComponent<SpriteRenderer>().color = whiteColor;
     }
 

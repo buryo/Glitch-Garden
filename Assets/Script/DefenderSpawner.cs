@@ -1,20 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class DefenderSpawner : MonoBehaviour
 {
-    [SerializeField] GameObject defender;
-    private ButtonsController buttonsController;
-
-    private void Start()
-    {
-        buttonsController = FindObjectOfType<ButtonsController>();
-    }
+    [SerializeField] ButtonsController buttonsController;
 
     private void OnMouseDown()
     {
-        Spawn();
+        int defenderCost = buttonsController.GetSelectedDefenderPrice();
+
+        if (StarController.BuyIfEnoughStars(defenderCost))
+        {
+            Spawn();
+        }
     }
 
     private Vector2 GetClickedSquare()
@@ -34,6 +34,8 @@ public class DefenderSpawner : MonoBehaviour
 
     private void Spawn()
     {
-        Instantiate(buttonsController.selectedDefender, GetClickedSquare(), transform.rotation);
+        if (buttonsController.selectedDefender)
+            Instantiate(buttonsController.selectedDefender, GetClickedSquare(), transform.rotation);
+        else Debug.Log("Select defender first!");
     }
 }

@@ -7,12 +7,7 @@ public class Attacker : MonoBehaviour
     [SerializeField] [Range(0f, 5f)] float attackerSpeed = 0f;
     [SerializeField] [Range(1f, 300f)] float health = 100f;
     [SerializeField] GameObject explosion = default;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
+    int starPoints = 25;
 
     // Update is called once per frame
     void Update()
@@ -32,6 +27,7 @@ public class Attacker : MonoBehaviour
 
         if (health <= 0)
         {
+            StarController.AddStar(starPoints);
             TriggerDeathVFX();
         }
     }

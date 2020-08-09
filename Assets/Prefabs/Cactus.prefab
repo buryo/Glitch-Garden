@@ -117,7 +117,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootPosition: {fileID: 3225408537046176166}
-  zucchinni: {fileID: 6884306666550658496, guid: fc6538229e2187049a73ec912c9c7181, type: 3}
+  ammo: {fileID: 6884306666550658496, guid: fc6538229e2187049a73ec912c9c7181, type: 3}
+  starCost: 100
 --- !u!1 &3225408537046176166
 GameObject:
   m_ObjectHideFlags: 0

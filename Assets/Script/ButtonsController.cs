@@ -15,6 +15,17 @@ public class ButtonsController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    public void SetDefender(GameObject defender)
+    {
+        DeactivateAllButtons();
+        selectedDefender = defender;
+    }
+
+    public int GetSelectedDefenderPrice()
+    {
+        return selectedDefender.GetComponentInChildren<Defender>().StarCost;
+    }
+
     public void DeactivateAllButtons()
     {
         foreach (GameObject button in buttons)
