@@ -2,7 +2,8 @@
 
 public class Defender : MonoBehaviour
 {
-    [SerializeField] GameObject zucchinni, shootPosition = default;
+    [SerializeField] GameObject shootPosition = default;
+    [SerializeField] GameObject zucchinni = default;
 
     public void Fire()
     {

@@ -4,29 +4,36 @@ using UnityEngine;
 
 public class DefenderSpawner : MonoBehaviour
 {
-    private GeneralInput controls;
-    private void Awake()
-    {
-        controls = new GeneralInput();
-    }
+    [SerializeField] GameObject defender;
+    private ButtonsController buttonsController;
 
     private void Start()
     {
-        controls.DefenderArea.DefenderSpawn.performed += _ => Spawn();
+        buttonsController = FindObjectOfType<ButtonsController>();
     }
 
-    private void OnEnable()
+    private void OnMouseDown()
     {
-        controls.Enable();
+        Spawn();
     }
 
-    private void OnDisable()
+    private Vector2 GetClickedSquare()
     {
-        controls.Disable();
+        Vector2 mousePos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        Vector2 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        Vector2 gridPos = SnapToGrid(worldPos);
+        return gridPos;
     }
 
-    public void Spawn()
+    private Vector2 SnapToGrid(Vector2 mousePos)
     {
-        Debug.Log("I was spawned");
+        float newX = Mathf.RoundToInt(mousePos.x);
+        float newY = Mathf.RoundToInt(mousePos.y);
+        return new Vector2(newX, newY);
+    }
+
+    private void Spawn()
+    {
+        Instantiate(buttonsController.selectedDefender, GetClickedSquare(), transform.rotation);
     }
 }
