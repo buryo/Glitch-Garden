@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,13 +6,20 @@ public class Shooter : Defender
 {
     [SerializeField] GameObject shootPosition = default;
     [SerializeField] GameObject ammo = null;
-    [SerializeField] public bool Shoot { get; private set; } = false;
-    [SerializeField] SpawnAttacker myLaneSpawner;
+    // [SerializeField] public bool Shoot { get; private set; } = false;
     [SerializeField] List<Transform> spawners = new List<Transform>();
+    Animator animator;
 
     private void Start()
     {
         SetLaneSpawners();
+        animator = GetComponent<Animator>();
+    }
+
+    // TODO: Use coroutine to fix this weak ass garbage Update code
+    private void Update()
+    {
+        LaneContainsAttackers();
     }
 
     /// <summary>
@@ -37,12 +45,9 @@ public class Shooter : Defender
     /// <summary>
     /// Fires the equiped ammo 
     /// </summary>
-    protected void Fire()
+    public void Fire()
     {
-        if (LaneContainsAttackers())
-        {
-            GameObject projectile = Instantiate(ammo, shootPosition.transform.position, transform.rotation);
-        }
+        GameObject projectile = Instantiate(ammo, shootPosition.transform.position, transform.rotation);
     }
 
     /// <summary>
@@ -55,9 +60,11 @@ public class Shooter : Defender
         {
             if (spawner.childCount > 0)
             {
+                animator.SetBool("isAttacking", true);
                 return true;
             }
         }
+        animator.SetBool("isAttacking", false);
         return false;
     }
 }

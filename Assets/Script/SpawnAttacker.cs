@@ -7,7 +7,7 @@ public class SpawnAttacker : MonoBehaviour
     [SerializeField] Attacker lizard = default;
     [SerializeField] bool spawnerActive = default;
     [SerializeField] private int spawnTimer = 3;
-    public event Action<int> OnSpawn;
+    public event Action OnSpawn;
 
     IEnumerator Start()
     {
@@ -24,6 +24,6 @@ public class SpawnAttacker : MonoBehaviour
         lizard.transform.parent = transform;
 
         if (OnSpawn != null)
-            OnSpawn.Invoke(Mathf.RoundToInt(gameObject.transform.position.y));
+            OnSpawn.Invoke();
     }
 }
