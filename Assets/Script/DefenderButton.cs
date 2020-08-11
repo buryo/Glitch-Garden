@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class DefenderButton : MonoBehaviour
 {
     private ButtonsController buttonsController;
-    [SerializeField] GameObject defenderPrefab;
+    [SerializeField] Defender defenderPrefab;
     Color whiteColor = new Color(255f, 255f, 255f);
 
     private void Start()

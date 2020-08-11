@@ -6,18 +6,24 @@ public class SpawnAttacker : MonoBehaviour
 {
     [SerializeField] Attacker lizard = default;
     [SerializeField] bool spawnerActive = default;
+    [SerializeField] private int spawnTimer = 3;
+    public event Action<int> OnSpawn;
 
     IEnumerator Start()
     {
         while (spawnerActive)
         {
-            yield return new WaitForSeconds(UnityEngine.Random.Range(1, 6));
+            yield return new WaitForSeconds(spawnTimer);
             Spawn();
         }
     }
 
     private void Spawn()
     {
-        Attacker lizard = Instantiate(this.lizard, transform.position, Quaternion.identity);
+        Attacker lizard = Instantiate(this.lizard, transform.position, Quaternion.identity) as Attacker;
+        lizard.transform.parent = transform;
+
+        if (OnSpawn != null)
+            OnSpawn.Invoke(Mathf.RoundToInt(gameObject.transform.position.y));
     }
 }

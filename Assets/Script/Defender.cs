@@ -1,28 +1,41 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-public class Defender : MonoBehaviour
+/// <summary>
+/// This is abstract because all defenders have similiar logic
+/// </summary>
+public abstract class Defender : MonoBehaviour
 {
-    [SerializeField] GameObject shootPosition = default;
-    [SerializeField] GameObject ammo = null;
+    [SerializeField] public int Health { get; protected set; } = 100;
+
+    public event Action OnDefenderGotHit;
+
+    /// <summary>
+    /// The price of the defender in Stars
+    /// </summary>
+    /// <value>100</value>
     public int StarCost { get; } = 100;
-    private int starGains = 25;
-    public int StarGains
+
+    /// <summary>
+    /// Defender taking damage
+    /// </summary>
+    /// <param name="damage">Damage value</param>
+    protected void TakeDamage(int damage)
     {
-        get { return starGains; }
-        private set
+        Health -= damage;
+        OnDefenderGotHit(); // TODO: For later
+
+        if (Health >= 0)
         {
-            if (value >= 0)
-                starGains = value;
+            Die();
         }
     }
 
-    public void Fire()
+    /// <summary>
+    /// Call when defender dies
+    /// </summary>
+    protected void Die()
     {
-        GameObject projectile = Instantiate(ammo, shootPosition.transform.position, transform.rotation);
-    }
-
-    public void GainStar()
-    {
-        StarController.AddStar(starGains);
+        Destroy(gameObject);
     }
 }

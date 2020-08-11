@@ -5,7 +5,7 @@ public class ButtonsController : MonoBehaviour
 {
     private static ButtonsController instance = null;
     public static ButtonsController Instance { get { return instance; } }
-    public GameObject selectedDefender;
+    public Defender selectedDefender;
     [SerializeField] List<GameObject> buttons;
     Color grayishColor = new Color(0f, 0f, 0f);
 
@@ -15,17 +15,27 @@ public class ButtonsController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void SetDefender(GameObject defender)
+    /// <summary>
+    /// Set the defender
+    /// </summary>
+    public void SetDefender(Defender defender)
     {
         DeactivateAllButtons();
         selectedDefender = defender;
     }
 
+    /// <summary>
+    /// Return the selected Defender's price in Stars
+    /// </summary>
+    /// <returns>Defender price</returns>
     public int GetSelectedDefenderPrice()
     {
         return selectedDefender.GetComponentInChildren<Defender>().StarCost;
     }
 
+    /// <summary>
+    /// Deactivate all selectable defenders on the canvas
+    /// </summary>
     public void DeactivateAllButtons()
     {
         foreach (GameObject button in buttons)
